@@ -5,6 +5,7 @@ import type { Browser, MultiRemoteBrowser } from 'webdriverio'
 
 import { getBrowserDescription, getBrowserCapabilities, isBrowserstackCapability, getParentSuiteName } from './util.js'
 import type { BrowserstackConfig, MultiRemoteAction, SessionResponse } from './types'
+import { DEFAULT_OPTIONS } from './constants.js'
 
 const log = logger('@wdio/browserstack-service')
 
@@ -14,15 +15,18 @@ export default class BrowserstackService implements Services.ServiceInstance {
     private _scenariosThatRan: string[] = []
     private _failureStatuses: string[] = ['failed', 'ambiguous', 'undefined', 'unknown']
     private _browser?: Browser<'async'> | MultiRemoteBrowser<'async'>
+    private _suiteTitle?: string
     private _fullTitle?: string
+    private _options: BrowserstackConfig & Options.Testrunner
 
     constructor (
-        private _options: BrowserstackConfig & Options.Testrunner,
+        options: BrowserstackConfig & Options.Testrunner,
         private _caps: Capabilities.RemoteCapability,
         private _config: Options.Testrunner
     ) {
+        this._options = { ...DEFAULT_OPTIONS, ...options }
         // added to maintain backward compatibility with webdriverIO v5
-        this._config || (this._config = _options)
+        this._config || (this._config = this._options)
         // Cucumber specific
         const strict = Boolean(this._config.cucumberOpts && this._config.cucumberOpts.strict)
         // See https://github.com/cucumber/cucumber-js/blob/master/src/runtime/index.ts#L136
@@ -41,12 +45,10 @@ export default class BrowserstackService implements Services.ServiceInstance {
         return fn(this._caps as Capabilities.Capabilities)
     }
 
-    /**
-     * if no user and key is specified even though a browserstack service was
-     * provided set user and key with values so that the session request
-     * will fail
-     */
-    beforeSession (config: Options.Testrunner) {
+    beforeSession (config: Omit<Options.Testrunner, 'capabilities'>) {
+        // if no user and key is specified even though a browserstack service was
+        // provided set user and key with values so that the session request
+        // will fail
         if (!config.user) {
             config.user = 'NotSetUser'
         }
@@ -73,50 +75,99 @@ export default class BrowserstackService implements Services.ServiceInstance {
         return this._printSessionURL()
     }
 
-    beforeSuite (suite: Frameworks.Suite) {
-        this._fullTitle = suite.title
+    /**
+     * Set the default job name at the suite level to make sure we account
+     * for the cases where there is a long running `before` function for a
+     * suite or one that can fail.
+     * Don't do this for Jasmine because `suite.title` is `Jasmine__TopLevel__Suite`
+     * and `suite.fullTitle` is `undefined`, so no alternative to use for the job name.
+     */
+    async beforeSuite (suite: Frameworks.Suite) {
+        this._suiteTitle = suite.title
+
+        if (suite.title && suite.title !== 'Jasmine__TopLevel__Suite') {
+            let jobName = suite.title
+            if (this._options.sessionNameFormat) {
+                jobName = this._options.sessionNameFormat(
+                    this._config,
+                    this._caps,
+                    suite.title
+                )
+            }
+            this._fullTitle = jobName
+            await this._setSessionName(jobName)
+        }
     }
 
+    async beforeTest (test: Frameworks.Test) {
+        const prevFullTitle = this._fullTitle
+
+        if (test.fullName) {
+            // For Jasmine, `suite.title` is `Jasmine__TopLevel__Suite`.
+            // This tweak allows us to set the real suite name.
+            const testSuiteName = test.fullName.slice(0, test.fullName.indexOf(test.description || '') - 1)
+            if (this._suiteTitle === 'Jasmine__TopLevel__Suite') {
+                this._fullTitle = testSuiteName
+            } else if (this._suiteTitle) {
+                this._fullTitle = getParentSuiteName(this._suiteTitle, testSuiteName)
+            }
+        } else {
+            // Mocha
+            const pre = this._options.sessionNamePrependTopLevelSuiteTitle ? `${this._suiteTitle} - ` : ''
+            const post = !this._options.sessionNameOmitTestTitle ? ` - ${test.title}` : ''
+            this._fullTitle = `${pre}${test.parent}${post}`
+        }
+
+        if (this._options.sessionNameFormat) {
+            const suiteTitle = test.fullName ? this._fullTitle! : this._suiteTitle!
+            this._fullTitle = this._options.sessionNameFormat(
+                this._config,
+                this._caps,
+                suiteTitle,
+                test.title
+            )
+        }
+
+        if (this._fullTitle !== prevFullTitle) {
+            await this._setSessionName(this._fullTitle)
+        }
+    }
+
+    /**
+     * For CucumberJS
+     */
     beforeFeature(uri: unknown, feature: { name: string }) {
-        this._fullTitle = feature.name
-        return this._updateJob({ name: this._fullTitle })
+        this._suiteTitle = feature.name
+        if (feature.name && this._fullTitle !== feature.name) {
+            this._fullTitle = feature.name
+            return this._setSessionName(this._fullTitle)
+        }
     }
 
     afterTest(test: Frameworks.Test, context: never, results: Frameworks.TestResult) {
         const { error, passed } = results
-
-        // Jasmine
-        if (test.fullName) {
-            const testSuiteName = test.fullName.slice(0, test.fullName.indexOf(test.description || '') - 1)
-            if (this._fullTitle === 'Jasmine__TopLevel__Suite') {
-                this._fullTitle = testSuiteName
-            } else if (this._fullTitle) {
-                this._fullTitle = getParentSuiteName(this._fullTitle, testSuiteName)
-            }
-        } else {
-            // Mocha
-            this._fullTitle = `${test.parent} - ${test.title}`
-        }
-
         if (!passed) {
             this._failReasons.push((error && error.message) || 'Unknown Error')
         }
     }
 
-    after (result: number) {
+    async after (result: number) {
+        const { preferScenarioName, setSessionName, setSessionStatus } = this._options
         // For Cucumber: Checks scenarios that ran (i.e. not skipped) on the session
         // Only 1 Scenario ran and option enabled => Redefine session name to Scenario's name
-        if (this._options.preferScenarioName && this._scenariosThatRan.length === 1){
+        if (preferScenarioName && this._scenariosThatRan.length === 1){
             this._fullTitle = this._scenariosThatRan.pop()
         }
 
-        const hasReasons = Boolean(this._failReasons.filter(Boolean).length)
+        const hasReasons = this._failReasons.length > 0
 
-        return this._updateJob({
-            status: result === 0 ? 'passed' : 'failed',
-            name: this._fullTitle,
-            reason: hasReasons ? this._failReasons.join('\n') : undefined
-        })
+        if (setSessionStatus) {
+            await this._updateJob({
+                status: result === 0 ? 'passed' : 'failed',
+                ...(setSessionName ? { name: this._fullTitle } : {}),
+                ...(hasReasons ? { reason: this._failReasons.join('\n') } : {})
+            })
+        }
     }
 
     /**
@@ -146,9 +197,10 @@ export default class BrowserstackService implements Services.ServiceInstance {
             return Promise.resolve()
         }
 
-        const hasReasons = Boolean(this._failReasons.filter(Boolean).length)
+        const { setSessionName, setSessionStatus } = this._options
+        const hasReasons = this._failReasons.length > 0
+        const status = hasReasons ? 'failed' : 'passed'
 
-        let status = hasReasons ? 'failed' : 'passed'
         if (!this._browser.isMultiremote) {
             log.info(`Update (reloaded) job with sessionId ${oldSessionId}, ${status}`)
         } else {
@@ -157,12 +209,16 @@ export default class BrowserstackService implements Services.ServiceInstance {
             log.info(`Update (reloaded) multiremote job for browser "${browserName}" and sessionId ${oldSessionId}, ${status}`)
         }
 
-        await this._update(oldSessionId, {
-            name: this._fullTitle,
-            status,
-            reason: hasReasons ? this._failReasons.join('\n') : undefined
-        })
+        if (setSessionStatus) {
+            await this._update(oldSessionId, {
+                status,
+                ...(setSessionName ? { name: this._fullTitle } : {}),
+                ...(hasReasons ? { reason: this._failReasons.join('\n') } : {})
+            })
+        }
+
         this._scenariosThatRan = []
+        delete this._suiteTitle
         delete this._fullTitle
         this._failReasons = []
         await this._printSessionURL()
@@ -237,5 +293,12 @@ export default class BrowserstackService implements Services.ServiceInstance {
             const browserString = getBrowserDescription(capabilities)
             log.info(`${browserString} session: ${response.body.automation_session.browser_url}`)
         })
+    }
+
+    private async _setSessionName(name: string | undefined) {
+        if (!this._options.setSessionName || !name) {
+            return
+        }
+        await this._updateJob({ name })
     }
 }
