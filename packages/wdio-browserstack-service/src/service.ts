@@ -42,12 +42,10 @@ export default class BrowserstackService implements Services.ServiceInstance {
         return fn(this._caps as Capabilities.Capabilities)
     }
 
-    /**
-     * if no user and key is specified even though a browserstack service was
-     * provided set user and key with values so that the session request
-     * will fail
-     */
-    beforeSession (config: Options.Testrunner) {
+    beforeSession (config: Omit<Options.Testrunner, 'capabilities'>) {
+        // if no user and key is specified even though a browserstack service was
+        // provided set user and key with values so that the session request
+        // will fail
         if (!config.user) {
             config.user = 'NotSetUser'
         }
@@ -83,9 +81,18 @@ export default class BrowserstackService implements Services.ServiceInstance {
      */
     async beforeSuite (suite: Frameworks.Suite) {
         this._suiteTitle = suite.title
-        if (suite.title && suite.title !== 'Jasmine__TopLevel__Suite' && this._fullTitle !== suite.title) {
-            this._fullTitle = suite.title
-            await this._updateJob({ name: this._fullTitle })
+
+        if (suite.title && suite.title !== 'Jasmine__TopLevel__Suite') {
+            let jobName = suite.title
+            if (this._options.setJobName) {
+                jobName = this._options.setJobName(
+                    this._config,
+                    this._caps,
+                    suite.title
+                )
+            }
+            this._fullTitle = jobName
+            await this._updateJob({ name: jobName })
         }
     }
 
@@ -93,35 +100,35 @@ export default class BrowserstackService implements Services.ServiceInstance {
      * Update the job name using concatenation of suite titles.
      */
     async beforeTest (test: Frameworks.Test) {
-        let jobName = ''
+        const prevFullTitle = this._fullTitle
+
         if (test.fullName) {
             // For Jasmine, `suite.title` is `Jasmine__TopLevel__Suite`.
             // This tweak allows us to set the real suite name.
             const testSuiteName = test.fullName.slice(0, test.fullName.indexOf(test.description || '') - 1)
             if (this._suiteTitle === 'Jasmine__TopLevel__Suite') {
-                jobName = testSuiteName
+                this._fullTitle = testSuiteName
             } else if (this._suiteTitle) {
-                jobName = getParentSuiteName(this._suiteTitle, testSuiteName)
+                this._fullTitle = getParentSuiteName(this._suiteTitle, testSuiteName)
             }
         } else {
-            // Mocha
-            jobName = this._suiteTitle
-                ? this._suiteTitle !== test.parent
-                    ? `${this._suiteTitle} - ${test.parent}`
-                    : this._suiteTitle
-                : test.parent ?? test.title
+            const pre = this._options.prependTopLevelSuiteTitle ? `${this._suiteTitle} - ` : ''
+            const post = !this._options.omitTestTitle ? ` - ${test.title}` : ''
+            this._fullTitle = `${pre}${test.parent}${post}`
         }
 
         if (this._options.setJobName) {
-            jobName = this._options.setJobName(
+            const suiteTitle = test.fullName ? this._fullTitle : this._suiteTitle
+            const testTitle = this._fullTitle !== test.title ? test.title : undefined
+            this._fullTitle = this._options.setJobName(
                 this._config,
                 this._caps,
-                this._suiteTitle!
+                suiteTitle!,
+                testTitle
             )
         }
 
-        if (jobName && this._fullTitle !== jobName) {
-            this._fullTitle = jobName
+        if (this._fullTitle !== prevFullTitle) {
             await this._updateJob({ name: this._fullTitle })
         }
     }
