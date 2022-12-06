@@ -59,7 +59,7 @@ export default async function scrollIntoView (
         {
             [ELEMENT_KEY]: this.elementId, // w3c compatible
             ELEMENT: this.elementId // jsonwp compatible
-        } as any as HTMLElement, true)
+        } as any as HTMLElement, options)
     }
 
     return browser.action('wheel')
