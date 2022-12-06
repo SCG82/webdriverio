@@ -62,11 +62,6 @@ describe('scrollIntoView test on mobile devices', () => {
     })
 
     it('scrolls by default the element to the top on mobile', async () => {
-        // @ts-ignore mock feature
-        browser.capabilities.mobileMode = true
-
-        console.log(browser.capabilities)
-
         await elem.scrollIntoView()
         expect(got.mock.calls[0][0].pathname)
             .toBe('/session/foobar-123/element')
