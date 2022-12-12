@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.prod",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "baseUrl": ".",
+    "outDir": "./cjs",
+    "rootDir": "./src-cjs",
+    "declaration": false,
+    "declarationMap": false
+  },
+  "files": ["src-cjs/index.ts"]
+}

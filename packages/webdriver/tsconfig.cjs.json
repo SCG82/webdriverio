@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.prod.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "./build/cjs",
+    "declaration": false,
+    "declarationMap": false
+  },
+  "include": ["src-cjs/**/*", "../../@types"]
+}

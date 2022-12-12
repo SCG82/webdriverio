@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { accessSync } from 'node:fs'
-import { readFile, writeFile } from 'node:fs/promises'
+// import { readFile, writeFile } from 'node:fs/promises'
 import url from 'node:url'
 import path from 'node:path'
 import shell from 'shelljs'
@@ -38,8 +38,9 @@ const ROOT_PACKAGES = [
 ]
 
 const BUILD_CJS = [
-    'wdio-globals',
     'eslint-plugin-wdio',
+    'wdio-globals',
+    'webdriverio',
 ]
 
 const packages = getSubPackages()
@@ -102,12 +103,12 @@ console.log(cmd)
 const { code } = shell.exec(cmd)
 
 if (!HAS_WATCH_FLAG) {
-    console.log('Remove `export {}` from CJS files')
-    for (const pkg of ['webdriver', 'devtools', 'webdriverio']) {
-        const filePath = path.join(__dirname, '..', 'packages', pkg, 'build', 'cjs', 'index.js')
-        const fileContent = await readFile(filePath, 'utf8')
-        await writeFile(filePath, fileContent.toString().replace('export {};', ''), 'utf8')
-    }
+    // console.log('Remove `export {}` from CJS files')
+    // for (const pkg of ['webdriver', 'devtools', 'webdriverio']) {
+    //     const filePath = path.join(__dirname, '..', 'packages', pkg, 'build', 'cjs', 'index.js')
+    //     const fileContent = await readFile(filePath, 'utf8')
+    //     await writeFile(filePath, fileContent.toString().replace('export {};', ''), 'utf8')
+    // }
 }
 
 if (code) {

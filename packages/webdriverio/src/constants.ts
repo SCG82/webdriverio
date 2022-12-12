@@ -5,7 +5,7 @@ import { UNICODE_CHARACTERS } from '@wdio/utils'
 import type { Options, Capabilities, Services, Reporters } from '@wdio/types'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const require = createRequire(import.meta.url)
+const req = createRequire(import.meta.url)
 enum SupportedAutomationProtocols {
     browser = 'browser-runner/build/browser/driver.js',
     webdriver = 'webdriver',
@@ -63,7 +63,7 @@ export const WDIO_DEFAULTS: Options.Definition<Options.WebdriverIO & Options.Tes
                 const id = param === SupportedAutomationProtocols.stub
                     ? resolve(__dirname, '..', 'build', param)
                     : param
-                require.resolve(id)
+                req.resolve(id)
             } catch (err: any) {
                 /* istanbul ignore next */
                 throw new Error(
