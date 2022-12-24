@@ -42,10 +42,12 @@ vi.mock('@cucumber/gherkin-streams', () => ({
 }))
 
 declare global {
+    /* eslint-disable no-var */
     var MODULE_A_WAS_LOADED: boolean
     var MODULE_B_WAS_LOADED_WITH: any
     var MODULE_INLINE_WAS_LOADED: boolean
     var MODULE_C_WAS_LOADED: boolean
+    /* eslint-enable no-var */
 }
 
 describe('CucumberAdapter', () => {
@@ -83,7 +85,7 @@ describe('CucumberAdapter', () => {
     })
 
     it('can be initiated with tests', async () => {
-        const adapter = await CucumberAdapter.init!!('0-0', {
+        const adapter = await CucumberAdapter.init!('0-0', {
             cucumberOpts: { names: 'FeatureA,FeatureB' }
         }, ['/foo/bar'], {}, {})
 

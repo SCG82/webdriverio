@@ -152,7 +152,7 @@ export default class MultiRemote {
 /* istanbul ignore next */
 export class MultiRemoteDriver {
     instances: string[]
-    isMultiremote = true as true
+    isMultiremote = true as const
     __propertiesObject__: Record<string, PropertyDescriptor>
 
     constructor (
