@@ -32,7 +32,7 @@ for (const protocol of protocols) {
 export default class WebDriverMock {
     command: CommandMock
     scope: nock.Scope
-    constructor(host: string = 'localhost', port: number = 4444, public path: string = '/') {
+    constructor(host = 'localhost', port = 4444, public path: string = '/') {
         this.scope = nock(`http://${host}:${port}`, { 'encodedQueryParams': true })
         this.command = new Proxy({}, { get: this.get.bind(this) })
     }

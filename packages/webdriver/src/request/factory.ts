@@ -14,7 +14,7 @@ export default class RequestFactory {
         method: string,
         endpoint: string,
         body?: Record<string, unknown>,
-        isHubCommand: boolean = false
+        isHubCommand = false
     ): Promise<WebDriverRequest> {
         if (!EnvRequestLib) {
             EnvRequestLib = process?.versions?.node

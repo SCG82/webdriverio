@@ -174,6 +174,6 @@ export * from './types.js'
 
 declare global {
     namespace WebdriverIO {
-        interface WDIODevtoolsOptions extends WDIODevtoolsOptionsExtension {}
+        type WDIODevtoolsOptions = WDIODevtoolsOptionsExtension
     }
 }

@@ -170,7 +170,7 @@ class MochaAdapter {
          */
         if (payload.root) return
 
-        let message = formatMessage({ type: event, payload, err })
+        const message = formatMessage({ type: event, payload, err })
 
         message.cid = this._cid
         message.specs = this._specs
@@ -253,6 +253,6 @@ export * from './types.js'
 
 declare global {
     namespace WebdriverIO {
-        interface MochaOpts extends MochaOptsImport {}
+        type MochaOpts = MochaOptsImport
     }
 }

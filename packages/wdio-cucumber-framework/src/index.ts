@@ -432,7 +432,7 @@ export {
 
 declare global {
     namespace WebdriverIO {
-        interface CucumberOpts extends CucumberOptions {}
-        interface HookFunctionExtension extends HookFunctionExtensionImport {}
+        type CucumberOpts = CucumberOptions
+        type HookFunctionExtension = HookFunctionExtensionImport
     }
 }

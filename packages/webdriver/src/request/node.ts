@@ -14,7 +14,7 @@ const agents: Options.Agents = {
 }
 
 export default class NodeJSRequest extends WebDriverRequest {
-    constructor (method: string, endpoint: string, body?: Record<string, unknown>, isHubCommand: boolean = false) {
+    constructor (method: string, endpoint: string, body?: Record<string, unknown>, isHubCommand = false) {
         super(method, endpoint, body, isHubCommand)
         this.defaultAgents = agents
     }

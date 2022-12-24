@@ -13,6 +13,6 @@ declare global {
          * property `args` also exists in Appium
          * ToDo(Christian): fine a better way to extend service options
          */
-        interface ServiceOption extends Omit<SeleniumStandaloneOptions, 'args'> {}
+        type ServiceOption = Omit<SeleniumStandaloneOptions, 'args'>
     }
 }

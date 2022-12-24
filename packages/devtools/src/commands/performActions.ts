@@ -133,7 +133,8 @@ export default async function performActions(
 
                 const cmd = singleAction.type.slice(POINTER.length).toLowerCase()
                 const keyboardFn = (page.mouse[cmd as keyof Mouse] as Function).bind(page.mouse)
-                let { x, y, duration, button, origin } = singleAction
+                const { duration, button, origin } = singleAction
+                let { x, y } = singleAction
 
                 if (cmd === 'move') {
                     /**

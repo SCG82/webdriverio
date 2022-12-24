@@ -10,6 +10,6 @@ import type { AppiumServiceConfig } from './types'
 
 declare global {
     namespace WebdriverIO {
-        interface ServiceOption extends AppiumServiceConfig {}
+        type ServiceOption = AppiumServiceConfig
     }
 }

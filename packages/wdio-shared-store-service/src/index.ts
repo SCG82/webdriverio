@@ -16,12 +16,12 @@ export interface BrowserExtension {
 
 declare global {
     namespace WebdriverIOAsync {
-        interface Browser extends BrowserExtension { }
-        interface MultiRemoteBrowser extends BrowserExtension { }
+        type Browser = BrowserExtension
+        type MultiRemoteBrowser = BrowserExtension
     }
 
     namespace WebdriverIOSync {
-        interface Browser extends BrowserExtension { }
-        interface MultiRemoteBrowser extends BrowserExtension { }
+        type Browser = BrowserExtension
+        type MultiRemoteBrowser = BrowserExtension
     }
 }

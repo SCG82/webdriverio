@@ -304,8 +304,7 @@ export interface ChromeOptions {
 /**
  * Chromium Edge
  */
-interface MicrosoftEdgeOptions extends ChromeOptions {
-}
+type MicrosoftEdgeOptions = ChromeOptions
 
 export type FirefoxLogLevels =
     'trace' | 'debug' | 'config' |

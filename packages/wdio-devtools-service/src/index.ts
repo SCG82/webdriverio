@@ -339,16 +339,16 @@ export type BrowserExtensionSync = {
 
 declare global {
     namespace WebdriverIO {
-        interface ServiceOption extends DevtoolsConfig {}
+        type ServiceOption = DevtoolsConfig
     }
 
     namespace WebdriverIOAsync {
-        interface Browser extends BrowserExtension { }
-        interface MultiRemoteBrowser extends BrowserExtension { }
+        type Browser = BrowserExtension
+        type MultiRemoteBrowser = BrowserExtension
     }
 
     namespace WebdriverIOSync {
-        interface Browser extends BrowserExtensionSync { }
-        interface MultiRemoteBrowser extends BrowserExtensionSync { }
+        type Browser = BrowserExtensionSync
+        type MultiRemoteBrowser = BrowserExtensionSync
     }
 }

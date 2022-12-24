@@ -77,7 +77,7 @@ export default class WebDriverInterception extends Interception {
      * Abort the request with an error code
      * @param {string} errorCode  error code of the response
      */
-    abort (errorReason: string, sticky: boolean = true) {
+    abort (errorReason: string, sticky = true) {
         if (typeof errorReason !== 'string' || !ERROR_REASON.includes(errorReason)) {
             throw new Error(`Invalid value for errorReason, allowed are: ${ERROR_REASON.join(', ')}`)
         }

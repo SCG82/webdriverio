@@ -120,7 +120,7 @@ export default class CucumberReporter {
             type: 'hook',
             state: result.status,
             error,
-            duration: Date.now() - this._testStart!?.getTime()
+            duration: Date.now() - this._testStart?.getTime()
         })
 
         this.emit('hook:end', payload)
@@ -205,7 +205,7 @@ export default class CucumberReporter {
             title: title,
             state,
             error,
-            duration: Date.now() - this._testStart!?.getTime(),
+            duration: Date.now() - this._testStart?.getTime(),
             passed: ['pass', 'skip'].includes(state),
             file: uri
         }
@@ -242,7 +242,7 @@ export default class CucumberReporter {
             parent: getFeatureId(uri, feature),
             type: 'scenario',
             file: uri,
-            duration: Date.now() - this._scenarioStart!?.getTime(),
+            duration: Date.now() - this._scenarioStart?.getTime(),
             tags: scenario.tags
         })
     }
@@ -253,13 +253,13 @@ export default class CucumberReporter {
             title: this.getTitle(feature),
             type: 'feature',
             file: uri,
-            duration: Date.now() - this._featureStart!?.getTime(),
+            duration: Date.now() - this._featureStart?.getTime(),
             tags: feature.tags
         })
     }
 
     emit (event: string, payload: any) {
-        let message = formatMessage({ payload })
+        const message = formatMessage({ payload })
 
         message.cid = this._cid
         message.specs = this._specs

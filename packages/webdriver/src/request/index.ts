@@ -64,7 +64,7 @@ export default abstract class WebDriverRequest extends EventEmitter {
         throwHttpErrors: false
     }
 
-    constructor (method: string, endpoint: string, body?: Record<string, unknown>, isHubCommand: boolean = false) {
+    constructor (method: string, endpoint: string, body?: Record<string, unknown>, isHubCommand = false) {
         super()
         this.body = body
         this.method = method
@@ -88,7 +88,7 @@ export default abstract class WebDriverRequest extends EventEmitter {
         return this._request(fullRequestOptions, options.transformResponse, options.connectionRetryCount, 0)
     }
 
-    protected async _createOptions (options: RequestOptions, sessionId?: string, isBrowser: boolean = false): Promise<RequestLibOptions> {
+    protected async _createOptions (options: RequestOptions, sessionId?: string, isBrowser = false): Promise<RequestLibOptions> {
         const agent = isBrowser ? undefined : (options.agent || this.defaultAgents)
         const searchParams = isBrowser ?
             undefined :

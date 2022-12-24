@@ -171,6 +171,6 @@ export * from './types.js'
 
 declare global {
     namespace WebdriverIO {
-        interface ReporterOption extends Options {}
+        type ReporterOption = Options
     }
 }

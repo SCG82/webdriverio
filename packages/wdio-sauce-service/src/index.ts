@@ -8,6 +8,6 @@ export * from './types.js'
 
 declare global {
     namespace WebdriverIO {
-        interface ServiceOption extends SauceServiceConfig {}
+        type ServiceOption = SauceServiceConfig
     }
 }

@@ -22,9 +22,9 @@ declare global {
         interface MochaOpts { [key: string]: any }
         interface JasmineOpts { [key: string]: any }
         interface CucumberOpts { [key: string]: any }
-        interface ServiceOption extends Services.ServiceOption {}
-        interface ReporterOption extends Reporters.Options {}
-        interface Config extends Options.Testrunner {}
+        type ServiceOption = Services.ServiceOption
+        type ReporterOption = Reporters.Options
+        type Config = Options.Testrunner
         interface HookFunctionExtension {}
         interface WDIODevtoolsOptions {}
         interface WDIOVSCodeServiceOptions {}

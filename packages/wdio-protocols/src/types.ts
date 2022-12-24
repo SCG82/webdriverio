@@ -4,7 +4,7 @@ export interface ProtocolCommandResponse {
 }
 
 // webdriver.json
-export interface SessionReturn extends /* DesiredCapabilities, */ ProtocolCommandResponse { }
+export type SessionReturn = ProtocolCommandResponse
 
 export interface StatusReturn extends ProtocolCommandResponse {
     ready?: boolean,

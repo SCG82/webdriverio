@@ -82,7 +82,7 @@ export default class Watcher {
     getFileListener (passOnFile = true) {
         return (spec: string) => {
             const runSpecs: Spec[] = []
-            let singleSpecFound: boolean = false
+            let singleSpecFound = false
             for (let index = 0, length = this._specs.length; index < length; index += 1) {
                 const value = this._specs[index]
                 if (Array.isArray(value) && value.indexOf(spec) > -1) {

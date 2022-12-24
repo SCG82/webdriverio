@@ -15,7 +15,7 @@ vi.mock('browserstack-local')
 
 const log = logger('test')
 const error = new Error('I\'m an error!')
-const sleep = (ms: number = 100) => new Promise((resolve) => setTimeout(resolve, ms))
+const sleep = (ms = 100) => new Promise((resolve) => setTimeout(resolve, ms))
 
 beforeEach(() => {
     vi.clearAllMocks()

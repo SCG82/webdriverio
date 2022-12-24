@@ -219,7 +219,7 @@ export default class DevtoolsInterception extends Interception {
      * Abort the request with an error code
      * @param {string} errorCode  error code of the response
      */
-    abort (errorReason: Protocol.Network.ErrorReason, sticky: boolean = true) {
+    abort (errorReason: Protocol.Network.ErrorReason, sticky = true) {
         if (typeof errorReason !== 'string' || !ERROR_REASON.includes(errorReason)) {
             throw new Error(`Invalid value for errorReason, allowed are: ${ERROR_REASON.join(', ')}`)
         }

@@ -3,7 +3,8 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     plugins: ['@typescript-eslint', 'unicorn', 'import'],
     extends: [
-        'eslint:recommended'
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
     ],
     env: {
         node: true,
@@ -41,11 +42,23 @@ module.exports = {
         'import/extensions': ['error', 'ignorePackages']
     },
     overrides: [{
-        files: ['*.ts'],
+        files: ['*.ts', '*.js', '*.test.ts'],
         rules: {
             // see https://stackoverflow.com/questions/55280555/typescript-eslint-eslint-plugin-error-route-is-defined-but-never-used-no-un
             'no-unused-vars': 'off',
-            '@typescript-eslint/no-unused-vars': 'error',
+            'prefer-rest-params': 'off',
+            'prefer-spread': 'off',
+            '@typescript-eslint/ban-ts-comment': 'off',
+            '@typescript-eslint/ban-types': 'off',
+            '@typescript-eslint/no-empty-function': 'off',
+            '@typescript-eslint/no-empty-interface': 'off',
+            '@typescript-eslint/no-explicit-any': 'off',
+            '@typescript-eslint/no-namespace': 'off',
+            '@typescript-eslint/no-non-null-asserted-optional-chain': 'off',
+            '@typescript-eslint/no-non-null-assertion': 'off',
+            '@typescript-eslint/no-this-alias': 'off',
+            '@typescript-eslint/no-var-requires': 'off',
+            '@typescript-eslint/triple-slash-reference': 'off',
             'no-undef': 'off',
             // allow overloads
             'no-redeclare': 'off'

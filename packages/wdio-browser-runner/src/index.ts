@@ -110,6 +110,6 @@ export default class BrowserRunner extends LocalRunner {
 
 declare global {
     namespace WebdriverIO {
-        interface BrowserRunnerOptions extends BrowserRunnerOptionsImport {}
+        type BrowserRunnerOptions = BrowserRunnerOptionsImport
     }
 }

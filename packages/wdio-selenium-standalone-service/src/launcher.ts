@@ -35,7 +35,7 @@ export default class SeleniumStandaloneLauncher {
     args: SeleniumStartArgs
     installArgs: SeleniumInstallArgs
     skipSeleniumInstall: boolean
-    watchMode: boolean = false
+    watchMode = false
     process!: SeleniumStandalone.ChildProcess
     drivers?: {
         chrome?: string

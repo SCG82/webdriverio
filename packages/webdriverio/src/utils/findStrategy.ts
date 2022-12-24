@@ -289,8 +289,8 @@ const createRoleBaseXpathSelector = (role: ARIARoleDefinitionKey) => {
     const locatorArr: string[] = []
     roleElements.get(role)?.forEach((value: ARIARoleRelationConcept) => {
         let locator: string
-        let tagname: string, tagAttribute: string | undefined, tagAttributevalue: string | number | undefined
-        tagname = value.name
+        let tagAttribute: string | undefined, tagAttributevalue: string | number | undefined
+        const tagname = value.name
         if (value.attributes instanceof Array) {
             value.attributes.forEach((val: ARIARoleRelationConceptAttribute) => {
                 tagAttribute = val.name
@@ -306,7 +306,7 @@ const createRoleBaseXpathSelector = (role: ARIARoleDefinitionKey) => {
         }
         locatorArr.push(locator)
     })
-    let xpathLocator: string = `[role="${role}"]`
+    let xpathLocator = `[role="${role}"]`
     locatorArr.forEach((loc) => {
         xpathLocator += ',' + loc
     })
