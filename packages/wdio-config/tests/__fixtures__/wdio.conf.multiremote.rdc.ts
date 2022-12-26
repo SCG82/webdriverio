@@ -1,5 +1,5 @@
 import path from 'node:path'
-import type { ConfigOptions } from '../../src/types'
+import type { ConfigOptions } from '../../src/types.js'
 
 const TEST_ROOT = path.join(__dirname, '..')
 

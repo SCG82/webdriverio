@@ -1,7 +1,7 @@
 module.exports = {
     root: true,
     parser: '@typescript-eslint/parser',
-    plugins: ['@typescript-eslint', 'unicorn', 'import'],
+    plugins: ['@typescript-eslint', 'unicorn', 'import', 'node'],
     extends: [
         'eslint:recommended'
     ],
@@ -42,8 +42,15 @@ module.exports = {
         'linebreak-style': ['error', 'unix'],
         'unicorn/prefer-node-protocol': ['error'],
         'import/extensions': ['error', 'ignorePackages'],
+<<<<<<< HEAD
         'no-restricted-syntax': ['error', 'IfStatement > ExpressionStatement > AssignmentExpression'],
         'unicorn/prefer-ternary': 'error'
+=======
+        'node/file-extension-in-import': ['error', 'always', {
+            tryExtensions: ['.js', '.json'],
+            '.xxx': 'always'
+        }]
+>>>>>>> d1d7d7994... wip towards node16 compatibility
     },
     overrides: [{
         files: ['*.ts'],

@@ -9,7 +9,7 @@ import type { Options } from '@wdio/types'
 // @ts-expect-error mock feature
 import RequestMock, { thenMock } from '../src/request/node.js'
 import commandWrapper from '../src/command.js'
-import type { BaseClient } from '../src/types'
+import type { BaseClient } from '../src/types.js'
 
 vi.mock('@wdio/logger', () => import(path.join(process.cwd(), '__mocks__', '@wdio/logger')))
 vi.mock('got')

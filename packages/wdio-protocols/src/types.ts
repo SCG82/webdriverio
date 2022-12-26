@@ -99,7 +99,7 @@ export interface Cookie {
 
 export type CommandPath = 'string'
 export type CommandMethod = 'POST' | 'GET' | 'DELETE'
-export type Protocol = Record<CommandPath, Record<CommandMethod, CommandEndpoint>>
+export type Protocol = Record<string, Partial<Record<CommandMethod, CommandEndpoint>>>
 
 /**
  * describes a command endpoint
@@ -132,11 +132,12 @@ export interface CommandEndpoint {
     /**
      * set to true if command is only supported in Selenium Hub Node
      */
-    isHubCommand?: boolean,
+    isHubCommand?: boolean
     /**
      * information on return data
      */
     returns?: CommandReturnObject
+    examples?: string[][]
 }
 
 export interface CommandReturnObject {
@@ -161,7 +162,7 @@ export interface CommandParameters {
     name: string,
     type: string,
     description: string,
-    required: boolean
+    required?: boolean
 }
 
 export type Platform = 'ios' | 'android'

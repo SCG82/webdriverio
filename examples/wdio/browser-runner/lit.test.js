@@ -1,6 +1,6 @@
 import { expect, $ } from '@wdio/globals'
 import { html, render } from 'lit'
-import './components/LitComponent.ts'
+import './components/LitComponent.ts' // eslint-disable-line
 
 describe('Lit Component testing', () => {
     it('should render component', async () => {

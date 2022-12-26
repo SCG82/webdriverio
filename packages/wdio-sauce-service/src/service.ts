@@ -10,7 +10,7 @@ import type { Browser, MultiRemoteBrowser } from 'webdriverio'
 
 import { isRDC, ansiRegex } from './utils.js'
 import { DEFAULT_OPTIONS } from './constants.js'
-import type { SauceServiceConfig } from './types'
+import type { SauceServiceConfig } from './types.js'
 
 const jobDataProperties = ['name', 'tags', 'public', 'build', 'custom-data'] as const
 
@@ -24,7 +24,7 @@ export default class SauceService implements Services.ServiceInstance {
     private _isJobNameSet = false
 
     private _options: SauceServiceConfig
-    private _api: SauceLabs
+    private _api: typeof SauceLabs.default
     private _browser?: Browser<'async'> | MultiRemoteBrowser<'async'>
     private _isRDC?: boolean
     private _suiteTitle?: string

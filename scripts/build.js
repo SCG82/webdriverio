@@ -38,9 +38,10 @@ const ROOT_PACKAGES = [
 ]
 
 const BUILD_CJS = [
-    'wdio-globals',
-    'wdio-allure-reporter',
     'eslint-plugin-wdio',
+    'wdio-allure-reporter',
+    'wdio-globals',
+    'wdio-smoke-test-service',
 ]
 
 const packages = getSubPackages()
@@ -103,7 +104,7 @@ console.log(cmd)
 const { code } = shell.exec(cmd)
 
 if (!HAS_WATCH_FLAG) {
-    console.log('Remove `export {}` from CJS files')
+    console.log('Removing `export {}` from CJS files')
     for (const pkg of ['webdriver', 'devtools', 'webdriverio']) {
         const filePath = path.join(__dirname, '..', 'packages', pkg, 'build', 'cjs', 'index.js')
         const fileContent = await readFile(filePath, 'utf8')

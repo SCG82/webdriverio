@@ -4,8 +4,8 @@ import type { Options } from '@wdio/types'
 
 import CompoundError from './compoundError.js'
 import { mochaEachHooks, mochaAllHooks, linkPlaceholder } from './constants.js'
-import type AllureReporter from './reporter.js'
-import type { Status } from './types'
+import type AllureReporter from './index.js'
+import type { Status } from './types.js'
 
 /**
  * Get allure test status by TestStat object

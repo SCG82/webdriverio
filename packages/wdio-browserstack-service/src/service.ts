@@ -4,7 +4,7 @@ import type { Services, Capabilities, Options, Frameworks } from '@wdio/types'
 import type { Browser, MultiRemoteBrowser } from 'webdriverio'
 
 import { getBrowserDescription, getBrowserCapabilities, isBrowserstackCapability, getParentSuiteName } from './util.js'
-import type { BrowserstackConfig, MultiRemoteAction, SessionResponse } from './types'
+import type { BrowserstackConfig, MultiRemoteAction, SessionResponse } from './types.js'
 import { DEFAULT_OPTIONS } from './constants.js'
 
 const log = logger('@wdio/browserstack-service')
