@@ -1,7 +1,7 @@
 import { deepmergeCustom } from 'deepmerge-ts'
 
 import logger from '@wdio/logger'
-import type Protocols from '@wdio/protocols'
+import type { Protocol } from '@wdio/protocols'
 import {
     WebDriverProtocol, MJsonWProtocol, JsonWProtocol, AppiumProtocol, ChromiumProtocol,
     SauceLabsProtocol, SeleniumProtocol, GeckoProtocol, WebDriverBidiProtocol
@@ -171,15 +171,17 @@ export function isSuccessfulResponse (statusCode?: number, body?: WebDriverRespo
  */
 export function getPrototype ({ isW3C, isChrome, isFirefox, isMobile, isSauce, isSeleniumStandalone }: Partial<SessionFlags>) {
     const prototype: Record<string, PropertyDescriptor> = {}
-    const ProtocolCommands: Protocols.Protocol = deepmerge(
+    const ProtocolCommands: Protocol = deepmerge(
         /**
          * if mobile apply JSONWire and WebDriver protocol because
          * some legacy JSONWire commands are still used in Appium
          * (e.g. set/get geolocation)
          */
-        isMobile
-            ? deepmerge(JsonWProtocol, WebDriverProtocol)
-            : isW3C ? WebDriverProtocol : JsonWProtocol,
+        isMobile ? deepmerge(JsonWProtocol, WebDriverProtocol) : {},
+        !isMobile ? (isW3C ? WebDriverProtocol : JsonWProtocol) : {},
+        // isMobile
+        //     ? deepmerge(JsonWProtocol, WebDriverProtocol)
+        //     : isW3C ? WebDriverProtocol : JsonWProtocol,
         /**
          * enable Bidi protocol for W3C sessions
          */
