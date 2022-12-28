@@ -1,6 +1,6 @@
 import path from 'node:path'
 import { expect, test, vi, beforeEach } from 'vitest'
-import type Protocol from 'devtools-protocol'
+import type { Protocol } from 'devtools-protocol'
 import type { CDPSession } from 'puppeteer-core/lib/esm/puppeteer/common/Connection.js'
 import type { Page } from 'puppeteer-core/lib/esm/puppeteer/api/Page.js'
 import type { HTTPRequest } from 'puppeteer-core/lib/esm/puppeteer/common/HTTPRequest.js'

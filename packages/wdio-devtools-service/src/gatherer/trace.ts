@@ -5,7 +5,7 @@ import ProtocolSession from 'lighthouse/lighthouse-core/fraggle-rock/gather/sess
 import { waitForFullyLoaded } from 'lighthouse/lighthouse-core/gather/driver/wait-for-condition.js'
 import logger from '@wdio/logger'
 
-import type Protocol from 'devtools-protocol'
+import type { Protocol } from 'devtools-protocol'
 import type { TraceEvent, TraceEventArgs } from '@tracerbench/trace-event'
 import type { HTTPRequest } from 'puppeteer-core/lib/esm/puppeteer/common/HTTPRequest.js'
 import type { CDPSession } from 'puppeteer-core/lib/esm/puppeteer/common/Connection.js'
