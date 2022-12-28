@@ -6,7 +6,7 @@ import NetworkHandler from '../../src/handler/network.js'
 
 import eventLog from '../__fixtures__/events.json'
 
-vi.mock('puppeteer-core/lib/esm/puppeteer/common/Connection')
+vi.mock('puppeteer-core/lib/esm/puppeteer/common/Connection.js')
 
 class MyEmitter extends EventEmitter {}
 
