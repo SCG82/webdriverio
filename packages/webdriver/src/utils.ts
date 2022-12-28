@@ -177,11 +177,9 @@ export function getPrototype ({ isW3C, isChrome, isFirefox, isMobile, isSauce, i
          * some legacy JSONWire commands are still used in Appium
          * (e.g. set/get geolocation)
          */
-        isMobile ? deepmerge(JsonWProtocol, WebDriverProtocol) : {},
-        !isMobile ? (isW3C ? WebDriverProtocol : JsonWProtocol) : {},
-        // isMobile
-        //     ? deepmerge(JsonWProtocol, WebDriverProtocol)
-        //     : isW3C ? WebDriverProtocol : JsonWProtocol,
+        isMobile
+            ? deepmerge(JsonWProtocol, WebDriverProtocol)
+            : isW3C ? WebDriverProtocol : JsonWProtocol,
         /**
          * enable Bidi protocol for W3C sessions
          */
