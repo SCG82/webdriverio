@@ -1,5 +1,5 @@
 import got from 'got'
-import * as dateFormat from 'dateformat'
+import dateFormat from 'dateformat'
 import stringify from 'json-stringify-safe'
 
 import type { RunnerStats, SuiteStats, TestStats } from '@wdio/reporter'
@@ -73,7 +73,7 @@ export default class SumoLogicReporter extends WDIOReporter {
 
     onTestSkip(test: TestStats) {
         this._unsynced.push(stringify({
-            time: dateFormat(new Date(), DATE_FORMAT),
+            time: dateFormat.default(new Date(), DATE_FORMAT),
             event: 'test:skip',
             data: test
         }))
