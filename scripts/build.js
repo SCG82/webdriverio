@@ -40,8 +40,7 @@ const ROOT_PACKAGES = [
 const BUILD_CJS = [
     'eslint-plugin-wdio',
     'wdio-allure-reporter',
-    'wdio-globals',
-    'wdio-smoke-test-service',
+    'wdio-globals'
 ]
 
 const packages = getSubPackages()

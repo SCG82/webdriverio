@@ -21,17 +21,7 @@
     "access": "public"
   },
   "type": "module",
-  "exports": {
-    ".": [
-      {
-        "types": "./build/index.d.ts",
-        "import": "./build/index.js",
-        "require": "./cjs/index.js"
-      },
-      "./cjs/index.js"
-    ]
-  },
-  "main": "./cjs/index.js",
+  "exports": "./build/index.js",
   "types": "./build/index.d.ts",
   "typeScriptVersion": "3.8.3"
 }
