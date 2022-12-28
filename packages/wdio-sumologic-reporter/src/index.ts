@@ -6,7 +6,7 @@ import type { RunnerStats, SuiteStats, TestStats } from '@wdio/reporter'
 import WDIOReporter from '@wdio/reporter'
 import logger from '@wdio/logger'
 
-import type { Options } from './types.js'
+import type { Options } from './types'
 
 const log = logger('@wdio/sumologic-reporter')
 
@@ -49,7 +49,7 @@ export default class SumoLogicReporter extends WDIOReporter {
 
     onRunnerStart(runner: RunnerStats) {
         this._unsynced.push(stringify({
-            time: dateFormat.default(new Date(), DATE_FORMAT),
+            time: dateFormat(new Date(), DATE_FORMAT),
             event: 'runner:start',
             data: runner
         }))
@@ -57,7 +57,7 @@ export default class SumoLogicReporter extends WDIOReporter {
 
     onSuiteStart(suite: SuiteStats) {
         this._unsynced.push(stringify({
-            time: dateFormat.default(new Date(), DATE_FORMAT),
+            time: dateFormat(new Date(), DATE_FORMAT),
             event: 'suite:start',
             data: suite
         }))
@@ -65,7 +65,7 @@ export default class SumoLogicReporter extends WDIOReporter {
 
     onTestStart(test: TestStats) {
         this._unsynced.push(stringify({
-            time: dateFormat.default(new Date(), DATE_FORMAT),
+            time: dateFormat(new Date(), DATE_FORMAT),
             event: 'test:start',
             data: test
         }))
@@ -73,7 +73,7 @@ export default class SumoLogicReporter extends WDIOReporter {
 
     onTestSkip(test: TestStats) {
         this._unsynced.push(stringify({
-            time: dateFormat.default(new Date(), DATE_FORMAT),
+            time: dateFormat(new Date(), DATE_FORMAT),
             event: 'test:skip',
             data: test
         }))
@@ -81,7 +81,7 @@ export default class SumoLogicReporter extends WDIOReporter {
 
     onTestPass(test: TestStats) {
         this._unsynced.push(stringify({
-            time: dateFormat.default(new Date(), DATE_FORMAT),
+            time: dateFormat(new Date(), DATE_FORMAT),
             event: 'test:pass',
             data: test
         }))
@@ -89,7 +89,7 @@ export default class SumoLogicReporter extends WDIOReporter {
 
     onTestFail(test: TestStats) {
         this._unsynced.push(stringify({
-            time: dateFormat.default(new Date(), DATE_FORMAT),
+            time: dateFormat(new Date(), DATE_FORMAT),
             event: 'test:fail',
             data: test
         }))
@@ -97,7 +97,7 @@ export default class SumoLogicReporter extends WDIOReporter {
 
     onTestEnd(test: TestStats) {
         this._unsynced.push(stringify({
-            time: dateFormat.default(new Date(), DATE_FORMAT),
+            time: dateFormat(new Date(), DATE_FORMAT),
             event: 'test:end',
             data: test
         }))
@@ -105,7 +105,7 @@ export default class SumoLogicReporter extends WDIOReporter {
 
     onSuiteEnd(suite: SuiteStats) {
         this._unsynced.push(stringify({
-            time: dateFormat.default(new Date(), DATE_FORMAT),
+            time: dateFormat(new Date(), DATE_FORMAT),
             event: 'suite:end',
             data: suite
         }))
@@ -114,7 +114,7 @@ export default class SumoLogicReporter extends WDIOReporter {
     onRunnerEnd(runner: RunnerStats) {
         this._hasRunnerEnd = true
         this._unsynced.push(stringify({
-            time: dateFormat.default(new Date(), DATE_FORMAT),
+            time: dateFormat(new Date(), DATE_FORMAT),
             event: 'runner:end',
             data: runner
         }))
