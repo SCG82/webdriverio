@@ -22,3 +22,5 @@ if (typeof process !== 'undefined' && typeof process.release !== 'undefined' && 
 // required the web file, thus ensuring that the Node file and related
 // dependencies will not be bundled inadvertently.
 export default mode.default as typeof loggerType
+
+export type { Logger } from './node.js'
