@@ -40,7 +40,8 @@ const ROOT_PACKAGES = [
 const BUILD_CJS = [
     'eslint-plugin-wdio',
     'wdio-allure-reporter',
-    'wdio-globals'
+    'wdio-globals',
+    'webdriver'
 ]
 
 const packages = getSubPackages()

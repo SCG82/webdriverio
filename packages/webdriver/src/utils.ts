@@ -204,7 +204,8 @@ export function getPrototype ({ isW3C, isChrome, isFirefox, isMobile, isSauce, i
          * only apply special commands when running tests using
          * Selenium Grid or Selenium Standalone server
          */
-        isSeleniumStandalone ? SeleniumProtocol : {}
+        isSeleniumStandalone ? SeleniumProtocol : {},
+        {} as Protocol
     )
 
     for (const [endpoint, methods] of Object.entries(ProtocolCommands)) {

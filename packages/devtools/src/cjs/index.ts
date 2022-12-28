@@ -1,4 +1,6 @@
+// @ts-expect-error - not generating typings for this file, so this is fine
 import type { Options } from '@wdio/types'
+// @ts-expect-error - not generating typings for this file, so this is fine
 import type { Client, AttachOptions } from '../types'
 
 module.exports = class Devtools {

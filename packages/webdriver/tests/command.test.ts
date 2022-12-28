@@ -3,7 +3,7 @@ import { EventEmitter } from 'node:events'
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import logger from '@wdio/logger'
-import type Protocols from '@wdio/protocols'
+import type { CommandEndpoint } from '@wdio/protocols'
 import type { Options } from '@wdio/types'
 
 // @ts-expect-error mock feature
@@ -17,7 +17,7 @@ vi.mock('got')
 const log = logger('webdriver')
 const commandPath = '/session/:sessionId/element/:elementId/element'
 const commandMethod = 'POST'
-const commandEndpoint: Protocols.CommandEndpoint = {
+const commandEndpoint: CommandEndpoint = {
     command: 'findElementFromElement',
     ref: 'https://w3c.github.io/webdriver/webdriver-spec.html#dfn-find-element-from-element',
     description: '',
