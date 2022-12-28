@@ -105,7 +105,7 @@ const { code } = shell.exec(cmd)
 
 if (!HAS_WATCH_FLAG) {
     console.log('Removing `export {}` from CJS files')
-    for (const pkg of ['webdriver', 'devtools', 'webdriverio']) {
+    for (const pkg of ['devtools', 'webdriverio']) {
         const filePath = path.join(__dirname, '..', 'packages', pkg, 'build', 'cjs', 'index.js')
         const fileContent = await readFile(filePath, 'utf8')
         await writeFile(filePath, fileContent.toString().replace('export {};', ''), 'utf8')

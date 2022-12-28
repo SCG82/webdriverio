@@ -4,7 +4,7 @@ export interface ProtocolCommandResponse {
 }
 
 // webdriver.json
-export interface SessionReturn extends /* DesiredCapabilities, */ ProtocolCommandResponse { }
+export interface SessionReturn extends ProtocolCommandResponse { }
 
 export interface StatusReturn extends ProtocolCommandResponse {
     ready?: boolean,
@@ -112,7 +112,7 @@ export interface CommandEndpoint {
     /**
      * command description
      */
-    description: string
+    description?: string
     /**
      * link to specification reference
      */
@@ -143,7 +143,7 @@ export interface CommandEndpoint {
 export interface CommandReturnObject {
     type: string
     name: string
-    description: string
+    description?: string
 }
 
 export interface CommandPathVariables {
@@ -176,7 +176,7 @@ export type Environments = 'XCUITest' | 'UIAutomation' | 'UiAutomator'
  * }
  * ```
  */
-export type SupportedEnvironments = Record<Platform, Record<Environments, string>>
+export type SupportedEnvironments = Partial<Record<Platform, Partial<Record<Environments, string>>>>
 
 export type SupportedMethods = (
     'session.status' |
