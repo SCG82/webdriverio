@@ -1,7 +1,7 @@
 module.exports = {
     root: true,
     parser: '@typescript-eslint/parser',
-    plugins: ['@typescript-eslint', 'unicorn', 'import'],
+    plugins: ['@typescript-eslint', 'unicorn', 'import', 'node'],
     extends: [
         'eslint:recommended'
     ],
@@ -43,7 +43,10 @@ module.exports = {
         'unicorn/prefer-node-protocol': ['error'],
         'import/extensions': ['error', 'ignorePackages'],
         'no-restricted-syntax': ['error', 'IfStatement > ExpressionStatement > AssignmentExpression'],
-        'unicorn/prefer-ternary': 'error'
+        'unicorn/prefer-ternary': 'error',
+        'node/file-extension-in-import': ['error', 'always', {
+            tryExtensions: ['.js', '.json']
+        }]
     },
     overrides: [{
         files: ['*.ts'],

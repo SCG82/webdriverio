@@ -7,7 +7,7 @@ import got from 'got'
 import fs from 'node:fs'
 
 import BrowserstackLauncher from '../src/launcher.js'
-import type { BrowserstackConfig } from '../src/types'
+import type { BrowserstackConfig } from '../src/types.js'
 import { version as bstackServiceVersion } from '../package.json'
 
 vi.mock('@wdio/logger', () => import(path.join(process.cwd(), '__mocks__', '@wdio/logger')))
