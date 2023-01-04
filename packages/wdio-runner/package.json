@@ -38,6 +38,11 @@
     "webdriver": "8.1.2",
     "webdriverio": "8.1.2"
   },
+  "devDependencies": {
+    "@wdio/protocols": "8.1.0",
+    "@wdio/repl": "8.1.0",
+    "devtools": "8.1.2"
+  },
   "publishConfig": {
     "access": "public"
   }

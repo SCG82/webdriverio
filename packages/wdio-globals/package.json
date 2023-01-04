@@ -43,5 +43,18 @@
   "optionalDependencies": {
     "expect-webdriverio": "^4.0.1",
     "webdriverio": "8.1.2"
+  },
+  "devDependencies": {
+    "@wdio/config": "8.1.2",
+    "@wdio/globals": "8.1.2",
+    "@wdio/logger": "8.1.0",
+    "@wdio/protocols": "8.1.0",
+    "@wdio/repl": "8.1.0",
+    "@wdio/types": "8.1.2",
+    "@wdio/utils": "8.1.2",
+    "devtools": "8.1.2",
+    "expect-webdriverio": "^4.0.1",
+    "webdriver": "8.1.2",
+    "webdriverio": "8.1.2"
   }
 }
