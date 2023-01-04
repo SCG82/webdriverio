@@ -270,7 +270,7 @@ describe('addCommand', () => {
             } catch (error) {
                 expect(error).toBe(error2)
             }
-            // @ts-ignore uses expect-webdriverio
+            // @ts-ignore uses @wdio/expect
             expect.assertions(2)
         })
 
@@ -315,7 +315,7 @@ describe('addCommand', () => {
             } catch (error) {
                 expect(error).toBe(error2)
             }
-            // @ts-ignore uses expect-webdriverio
+            // @ts-ignore uses @wdio/expect
             expect.assertions(2)
         })
     })

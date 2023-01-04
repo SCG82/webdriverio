@@ -11,7 +11,7 @@ import * as packageExports from '../src/index.js'
 
 vi.mock('mockery')
 vi.mock('@wdio/utils')
-vi.mock('expect-webdriverio')
+vi.mock('@wdio/expect')
 vi.mock('@cucumber/cucumber')
 vi.mock('@cucumber/messages', () => ({ IdGenerator: { incrementing: vi.fn() } }))
 vi.mock('../src/reporter', () => ({

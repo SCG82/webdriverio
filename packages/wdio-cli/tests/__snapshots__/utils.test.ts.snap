@@ -138,7 +138,7 @@ exports[`setupTypeScript 1`] = `
         \\"types\\": [
             \\"node\\",
             \\"@wdio/globals/types\\",
-            \\"expect-webdriverio\\",
+            \\"@wdio/expect/types\\",
             \\"foo\\"
         ],
         \\"target\\": \\"es2022\\"

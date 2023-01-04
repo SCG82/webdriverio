@@ -10,7 +10,7 @@ import { EVENTS } from '../src/constants.js'
 vi.mock('mocha')
 vi.mock('@wdio/utils')
 vi.mock('@wdio/logger', () => import(path.join(process.cwd(), '__mocks__', '@wdio/logger')))
-vi.mock('expect-webdriverio')
+vi.mock('@wdio/expect')
 vi.mock('../src/utils', () => ({
     loadModule: vi.fn()
 }))

@@ -5,7 +5,7 @@
       "node",
       "mocha",
       "@wdio/globals/types",
-      "expect-webdriverio",
+      "@wdio/expect/types",
       "@wdio/mocha-framework",
       "@wdio/browser-runner"
     ],

@@ -4,7 +4,7 @@ import type { EventEmitter } from 'node:events'
 import Jasmine from 'jasmine'
 import logger from '@wdio/logger'
 import { wrapGlobalTestMethod, executeHooksWithArgs } from '@wdio/utils'
-import { expect } from 'expect-webdriverio'
+import { expect } from '@wdio/expect'
 import { _setGlobal } from '@wdio/globals'
 import type { Options, Services, Capabilities } from '@wdio/types'
 

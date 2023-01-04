@@ -6,7 +6,7 @@ import logger from '@wdio/logger'
 import { initialiseWorkerService, initialisePlugin, executeHooksWithArgs } from '@wdio/utils'
 import { ConfigParser } from '@wdio/config'
 import { _setGlobal } from '@wdio/globals'
-import { expect, setOptions } from 'expect-webdriverio'
+import { _setExpectGlobal, expect, setOptions } from '@wdio/expect'
 import type { Selector, Browser, MultiRemoteBrowser } from 'webdriverio'
 import { attach } from 'webdriverio'
 import type { Options, Capabilities } from '@wdio/types'
@@ -285,6 +285,7 @@ export default class Runner extends EventEmitter {
             _setGlobal('browser', this._browser, config.injectGlobals)
             _setGlobal('driver', this._browser, config.injectGlobals)
             _setGlobal('expect', expect, config.injectGlobals)
+            _setExpectGlobal(config.injectGlobals)
 
             /**
              * re-assign previously registered custom commands to the actual instance
@@ -297,7 +298,7 @@ export default class Runner extends EventEmitter {
             }
 
             /**
-             * import and set options for `expect-webdriverio` assertion lib once
+             * import and set options for `@wdio/expect` assertion lib once
              * the browser was initiated
              */
             setOptions({

@@ -45,7 +45,7 @@ describe('selectByIndex test', () => {
     })
 
     it('should throw an error when index < 0', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.hasAssertions()
         try {
             await elem.selectByIndex(-2)
@@ -55,7 +55,7 @@ describe('selectByIndex test', () => {
     })
 
     it('should throw if there are no options elements', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.hasAssertions()
         const mockElem = {
             options: {},
@@ -75,7 +75,7 @@ describe('selectByIndex test', () => {
     })
 
     it('should throw if index is out of range', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.hasAssertions()
         const mockElem = {
             options: {},
@@ -94,7 +94,7 @@ describe('selectByIndex test', () => {
     })
 
     it('should throw if index is out of rangew', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.hasAssertions()
         try {
             await elem.selectByIndex(3)

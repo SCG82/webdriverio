@@ -81,7 +81,7 @@ describe('newWindow', () => {
                 browserName: 'foobar'
             }
         })
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.hasAssertions()
 
         try {

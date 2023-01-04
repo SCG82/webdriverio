@@ -139,7 +139,7 @@ describe('selectByVisibleText test', () => {
     })
 
     it('should throw if option is not found', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.hasAssertions()
 
         const mockElem = {

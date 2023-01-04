@@ -67,7 +67,7 @@ describe('waitForDisplayed', () => {
     })
 
     it('should call isDisplayed and return false', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(1)
         const tmpElem = await browser.$('#foo')
         const elem = {
@@ -121,7 +121,7 @@ describe('waitForDisplayed', () => {
     })
 
     it('should call isDisplayed and return false with custom error', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(1)
         const tmpElem = await browser.$('#foo')
         const elem = {

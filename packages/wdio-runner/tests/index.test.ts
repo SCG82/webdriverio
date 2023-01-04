@@ -8,7 +8,7 @@ import { ConfigParser } from '@wdio/config'
 import { attach } from 'webdriverio'
 import type { Browser, MultiRemoteBrowser } from 'webdriverio'
 import { _setGlobal } from '@wdio/globals'
-import { setOptions } from 'expect-webdriverio'
+import { setOptions } from '@wdio/expect'
 
 import WDIORunner from '../src/index.js'
 
@@ -16,7 +16,7 @@ vi.mock('fs/promises', () => ({
     default: { writeFile: vi.fn() }
 }))
 vi.mock('util')
-vi.mock('expect-webdriverio')
+vi.mock('@wdio/expect')
 vi.mock('webdriverio', () => import(path.join(process.cwd(), '__mocks__', 'webdriverio')))
 vi.mock('@wdio/utils', () => import(path.join(process.cwd(), '__mocks__', '@wdio/utils')))
 vi.mock('@wdio/logger', () => import(path.join(process.cwd(), '__mocks__', '@wdio/logger')))

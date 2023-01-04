@@ -69,7 +69,7 @@ describe('waitForClickable', () => {
     })
 
     it('should call isClickable and return false', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(1)
         const tmpElem = await browser.$('#foo')
         const elem = {
@@ -125,7 +125,7 @@ describe('waitForClickable', () => {
     })
 
     it('should call isClickable and return false with custom error', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(1)
         const tmpElem = await browser.$('#foo')
         const elem = {

@@ -30,11 +30,11 @@
   },
   "dependencies": {
     "@types/node": "^18.0.0",
+    "@wdio/expect": "8.1.0",
     "@wdio/globals": "8.1.0",
     "@wdio/logger": "8.1.0",
     "@wdio/types": "8.1.0",
     "@wdio/utils": "8.1.0",
-    "expect-webdriverio": "^4.0.1",
     "jasmine": "^4.2.1"
   },
   "devDependencies": {

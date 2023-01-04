@@ -696,7 +696,7 @@ export async function setupTypeScript (parsedAnswers: ParsedAnswers) {
     const types = [
         'node',
         '@wdio/globals/types',
-        'expect-webdriverio',
+        '@wdio/expect/types',
         frameworkPackage.package,
         ...(parsedAnswers.runner === 'browser' ? ['@wdio/browser-runner'] : []),
         ...servicePackages

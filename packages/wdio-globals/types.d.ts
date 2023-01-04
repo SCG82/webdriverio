@@ -2,7 +2,7 @@ type BrowserType = import('webdriverio').Browser<'async'>
 type ElementType = import('webdriverio').Element<'async'>
 type ElementArrayType = import('webdriverio').ElementArray
 type MultiRemoteBrowserType = import('webdriverio').MultiRemoteBrowser<'async'>
-type ExpectType = import('expect-webdriverio').Expect
+type ExpectType = import('@wdio/expect').Expect
 
 declare namespace WebdriverIOAsync {
     interface Browser {}

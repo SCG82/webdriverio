@@ -50,7 +50,7 @@ describe('switchWindow', () => {
     })
 
     it('should fail if no window was found', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.hasAssertions()
         got.setMockResponse([...webdriverResponses])
 
@@ -62,7 +62,7 @@ describe('switchWindow', () => {
     })
 
     it('should fail if parameter is not valid', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.hasAssertions()
 
         try {

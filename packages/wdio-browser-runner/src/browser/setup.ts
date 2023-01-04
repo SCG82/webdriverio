@@ -1,6 +1,6 @@
 import { automationProtocolPath } from 'virtual:wdio'
 
-import { expect } from 'expect-webdriverio'
+import { expect } from '@wdio/expect'
 import { remote } from 'webdriverio'
 import { _setGlobal } from '@wdio/globals'
 

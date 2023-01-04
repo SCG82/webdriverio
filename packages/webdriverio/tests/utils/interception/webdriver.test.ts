@@ -120,7 +120,7 @@ test('abort', async () => {
 
 test('abort fails if invalid error reason was provided', async () => {
     const mock = new NetworkInterception('**/foobar/**', undefined, browserMock)
-    // @ts-ignore uses expect-webdriverio
+    // @ts-ignore uses @wdio/expect
     expect.assertions(1)
 
     try {

@@ -53,20 +53,21 @@ export const $$: WebdriverIO.Browser['$$'] = (...args: any) => {
     }
     return globals.get('$$')(...args)
 }
-export const expect: ExpectWebdriverIO.Expect = ((...args: any) => {
-    if (!globals.has('expect')) {
-        throw new Error(GLOBALS_ERROR_MESSAGE)
-    }
-    return globals.get('expect')(...args)
-}) as ExpectWebdriverIO.Expect
 
-expect.extend = (...args: unknown[]) => {
-    if (!globals.has('expect')) {
-        throw new Error(GLOBALS_ERROR_MESSAGE)
-    }
-    const expect = globals.get('expect')
-    return expect.extend(...args)
-}
+// export const expect: ExpectWebdriverIO.Expect = ((...args: any) => {
+//     if (!globals.has('expect')) {
+//         throw new Error(GLOBALS_ERROR_MESSAGE)
+//     }
+//     return globals.get('expect')(...args)
+// }) as ExpectWebdriverIO.Expect
+
+// expect.extend = (...args: unknown[]) => {
+//     if (!globals.has('expect')) {
+//         throw new Error(GLOBALS_ERROR_MESSAGE)
+//     }
+//     const expect = globals.get('expect')
+//     return expect.extend(...args)
+// }
 
 /**
  * allows to set global property to be imported and used later on

@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.prod",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./build",
+    "rootDir": "./src",
+    "lib": ["es2020", "dom"],
+    "strict": false,
+    "strictBindCallApply": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "types": [
+      "node",
+      "@wdio/globals/types"
+    ]
+  },
+  "include": [
+    "src/**/*",
+    "../../@types"
+  ]
+}

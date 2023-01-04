@@ -65,7 +65,7 @@ export default class DevtoolsInterception extends Interception {
                 }
 
                 /**
-                 * Add statusCode and responseHeaders to request to be used in expect-webdriverio
+                 * Add statusCode and responseHeaders to request to be used in @wdio/expect
                  */
                 request.statusCode = responseStatusCode
                 request.responseHeaders = { ...responseHeaders }

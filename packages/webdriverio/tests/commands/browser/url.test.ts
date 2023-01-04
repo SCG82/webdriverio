@@ -35,7 +35,7 @@ describe('url', () => {
     })
 
     it('should throw an exception when a non-string value passed in', async () => {
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(1)
 
         try {

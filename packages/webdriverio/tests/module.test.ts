@@ -164,7 +164,7 @@ describe('WebdriverIO module interface', () => {
         })
 
         it('throws error if trying to overwrite locator strategy', async () => {
-            // @ts-ignore uses expect-webdriverio
+            // @ts-ignore uses @wdio/expect
             expect.assertions(1)
             const browser = await remote({
                 automationProtocol: 'webdriver',
@@ -246,7 +246,7 @@ describe('WebdriverIO module interface', () => {
         })
 
         it('throws error if trying to overwrite locator strategy', async () => {
-            // @ts-ignore uses expect-webdriverio
+            // @ts-ignore uses @wdio/expect
             expect.assertions(1)
             const driver = await multiremote({
                 // @ts-ignore mock feature

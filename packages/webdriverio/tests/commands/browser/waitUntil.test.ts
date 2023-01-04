@@ -20,7 +20,7 @@ describe('waitUntil', () => {
     it('Should throw an error if an invalid condition is used', async () => {
         let error
         let val
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(2)
         try {
             // @ts-ignore test invalid condition parameter
@@ -40,7 +40,7 @@ describe('waitUntil', () => {
     it.each([false, '', 0])('Should throw an error when the waitUntil times out e.g. doesnt resolve to a truthy value: %i', async () => {
         let error
         let val
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(2)
         try {
             val = await browser.waitUntil(
@@ -66,7 +66,7 @@ describe('waitUntil', () => {
     it('Should throw an error when the promise is rejected', async () => {
         let error
         let val
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(2)
         try {
             val = await browser.waitUntil(
@@ -91,7 +91,7 @@ describe('waitUntil', () => {
 
     it('Should throw an error when the promise is rejected without error message', async () => {
         let val
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(2)
         try {
             val = await browser.waitUntil(
@@ -113,7 +113,7 @@ describe('waitUntil', () => {
     it('Should use default timeout setting from config if passed in value is not a number', async () => {
         let error
         let val
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(2)
         try {
             // @ts-ignore test invalid timeout parameter
@@ -140,7 +140,7 @@ describe('waitUntil', () => {
     it('Should use default interval setting from config if passed in value is not a number', async () => {
         let error
         let val
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(2)
         try {
             // @ts-ignore test invalid interval parameter
@@ -168,7 +168,7 @@ describe('waitUntil', () => {
     it.each([true, 'false', 123])('Should pass for a truthy resolved value: %i', async(n) => {
         let error
         let val
-        // @ts-ignore uses expect-webdriverio
+        // @ts-ignore uses @wdio/expect
         expect.assertions(2)
         try {
             val = await browser.waitUntil(

@@ -7,7 +7,7 @@ import type { EventEmitter } from 'node:events'
 import JasmineAdapterFactory, { JasmineAdapter } from '../src/index.js'
 
 vi.mock('jasmine')
-vi.mock('expect-webdriverio')
+vi.mock('@wdio/expect')
 vi.mock('@wdio/logger', () => import(path.join(process.cwd(), '__mocks__', '@wdio/logger')))
 vi.mock('@wdio/utils', () => import(path.join(process.cwd(), '__mocks__', '@wdio/utils')))
 
