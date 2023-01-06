@@ -9,14 +9,16 @@ export interface SauceServiceConfig {
     maxErrorStackLength?: number
 
     /**
-     * Specify tunnel identifier for Sauce Connect tunnel
-     */
-    tunnelIdentifier?: string
-
-    /**
      * Specify tunnel identifier for Sauce Connect parent tunnel
      */
     parentTunnel?: string
+
+    /**
+     * Cucumber only. Set the job name to the Scenario name if only a single Scenario ran.
+     * Useful when running in parallel with [wdio-cucumber-parallel-execution](https://github.com/SimitTomar/wdio-cucumber-parallel-execution).
+     * @default false
+     */
+    preferScenarioName?: boolean
 
     /**
      * If true it runs Sauce Connect and opens a secure connection between a Sauce Labs virtual
@@ -35,12 +37,6 @@ export interface SauceServiceConfig {
     sauceConnectOpts?: SauceConnectOptions
 
     /**
-     * Upload WebdriverIO logs to the Sauce Labs platform.
-     * @default true
-     */
-    uploadLogs?: boolean
-
-    /**
      * Use Sauce Connect as a Selenium Relay. See more [here](https://wiki.saucelabs.com/display/DOCS/Using+the+Selenium+Relay+with+Sauce+Connect+Proxy).
      * @deprecated
      */
@@ -54,4 +50,21 @@ export interface SauceServiceConfig {
         capabilities: Capabilities.RemoteCapability,
         suiteTitle: string
     ) => string
+
+    /**
+     * Automatically set the job status (passed/failed).
+     * @default true
+     */
+    setJobStatus?: boolean
+
+    /**
+     * Specify tunnel identifier for Sauce Connect tunnel
+     */
+    tunnelIdentifier?: string
+
+    /**
+     * Upload WebdriverIO logs to the Sauce Labs platform.
+     * @default true
+     */
+    uploadLogs?: boolean
 }

@@ -28,7 +28,13 @@ export default class SauceService implements Services.ServiceInstance {
     private _browser?: Browser<'async'> | MultiRemoteBrowser<'async'>
     private _isRDC?: boolean
     private _suiteTitle?: string
+    private _fullTitle?: string
     private _cid = ''
+
+    private _failReasons: string[] = []
+    private _specsRan: boolean = false
+    private _scenariosThatRan: string[] = []
+    private _failureStatuses: string[] = ['failed', 'ambiguous', 'undefined', 'unknown']
 
     constructor (
         options: SauceServiceConfig,
@@ -148,6 +154,7 @@ export default class SauceService implements Services.ServiceInstance {
     }
 
     afterTest (test: Frameworks.Test, context: unknown, results: Frameworks.TestResult) {
+        this._specsRan = true
         /**
          * If the test failed push the stack to Sauce Labs in separate lines
          * This should not be done for UP because it's not supported yet and
@@ -184,6 +191,7 @@ export default class SauceService implements Services.ServiceInstance {
 
         const isJasminePendingError = typeof results.error === 'string' && results.error.includes('marked Pending')
         if (!results.passed && !isJasminePendingError) {
+            this._failReasons.push((results.error && results.error.message) || 'Unknown Error')
             ++this._failures
         }
     }
@@ -265,11 +273,30 @@ export default class SauceService implements Services.ServiceInstance {
      * @param result.error    error stack if scenario failed
      * @param result.duration duration of scenario in milliseconds
      */
-    afterScenario(world: Frameworks.World, result: Frameworks.PickleResult) {
-        // check if scenario has failed
-        if (!result.passed) {
+    afterScenario(world: Frameworks.World) {
+        this._specsRan = true
+
+        const status = world.result?.status.toLowerCase()
+        if (status !== 'skipped') {
+            this._scenariosThatRan.push(world.pickle.name || 'unknown pickle name')
+        }
+
+        if (status && this._failureStatuses.includes(status)) {
+            const exception = (
+                (world.result && world.result.message) ||
+                (status === 'pending'
+                    ? `Some steps/hooks are pending for scenario "${world.pickle.name}"`
+                    : 'Unknown Error'
+                )
+            )
+            this._failReasons.push(exception)
             ++this._failures
         }
+
+        // check if scenario has failed
+        // if (!result.passed) {
+        //     ++this._failures
+        // }
     }
 
     /**
@@ -290,23 +317,38 @@ export default class SauceService implements Services.ServiceInstance {
             failures = 1
         }
 
-        const status = 'status: ' + (failures > 0 ? 'failing' : 'passing')
+        /**
+         * set failures to 1 if no tests have run
+         */
+        if (failures === 0 && !this._specsRan) {
+            failures = 1
+        }
+
+        // For Cucumber: Checks scenarios that ran (i.e. not skipped) on the session
+        // Only 1 Scenario ran and option enabled => Redefine job name to Scenario's name
+        if (this._options.preferScenarioName && this._scenariosThatRan.length === 1){
+            this._fullTitle = this._scenariosThatRan.pop()
+        }
+
+        // const status = failures > 0 ? 'failed' : 'passed'
+        const status = result === 0 && this._specsRan ? 'passed' : 'failed'
+
         if (!this._browser.isMultiremote) {
             await this._uploadLogs(this._browser.sessionId)
-            log.info(`Update job with sessionId ${this._browser.sessionId}, ${status}`)
+            log.info(`Update job with sessionId ${this._browser.sessionId}, status: ${status}`)
             return this._isRDC ?
-                this.setAnnotation(`sauce:job-result=${failures === 0}`) :
+                this.setAnnotation(`sauce:job-result=${status}`) :
                 this.updateJob(this._browser.sessionId, failures)
         }
 
         const multiRemoteBrowser = this._browser as MultiRemoteBrowser<'async'>
         return Promise.all(Object.keys(this._capabilities).map(async (browserName) => {
             const isMultiRemoteRDC = isRDC(multiRemoteBrowser[browserName].capabilities as Capabilities.Capabilities)
-            log.info(`Update multiRemote job for browser "${browserName}" and sessionId ${multiRemoteBrowser[browserName].sessionId}, ${status}`)
+            log.info(`Update multiRemote job for browser "${browserName}" and sessionId ${multiRemoteBrowser[browserName].sessionId}, status: ${status}`)
             // Sauce Unified Platform (RDC) can not be updated with an API.
             // The logs can also not be uploaded
             if (isMultiRemoteRDC) {
-                return this.setAnnotation(`sauce:job-result=${failures === 0}`)
+                return this.setAnnotation(`sauce:job-result=${status}`)
             }
             await this._uploadLogs(multiRemoteBrowser[browserName].sessionId)
             return this.updateJob(multiRemoteBrowser[browserName].sessionId, failures, false, browserName)
@@ -338,22 +380,26 @@ export default class SauceService implements Services.ServiceInstance {
             return
         }
 
-        const status = 'status: ' + (this._failures > 0 ? 'failing' : 'passing')
+        const status = this._failures > 0 ? 'failed' : 'passed'
 
         if (!this._browser.isMultiremote) {
-            log.info(`Update (reloaded) job with sessionId ${oldSessionId}, ${status}`)
+            log.info(`Update (reloaded) job with sessionId ${oldSessionId}, status: ${status}`)
             return this.updateJob(oldSessionId, this._failures, true)
         }
 
         const mulitremoteBrowser = this._browser as MultiRemoteBrowser<'async'>
         const browserName = mulitremoteBrowser.instances.filter(
             (browserName: string) => mulitremoteBrowser[browserName].sessionId === newSessionId)[0]
-        log.info(`Update (reloaded) multiremote job for browser "${browserName}" and sessionId ${oldSessionId}, ${status}`)
+        log.info(`Update (reloaded) multiremote job for browser "${browserName}" and sessionId ${oldSessionId}, status: ${status}`)
         return this.updateJob(oldSessionId, this._failures, true, browserName)
     }
 
     async updateJob (sessionId: string, failures: number, calledOnReload = false, browserName?: string) {
         const body = this.getBody(failures, calledOnReload, browserName)
+        if (!this._options.setJobStatus) {
+            delete body.status
+        }
+        body.failure_reasons = this._failReasons
         await this._api.updateJob(this._config.user as string, sessionId, body as Job)
         this._failures = 0
     }
