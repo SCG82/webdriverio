@@ -1,5 +1,7 @@
 {
   "lerna": "3.4.3",
+  "npmClient": "pnpm",
+  "useWorkspaces": true,
   "packages": [
     "packages/*"
   ],
@@ -10,6 +12,9 @@
         "--no-package-lock",
         "--include=dev"
       ]
+    },
+    "publish": {
+      "npmClient": "npm"
     }
   },
   "changelog": {

@@ -23,18 +23,20 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install pnpm
+        run: npm install -g pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
       - name: Bootstrap Packages
-        run: npm run setup-full
+        run: pnpm run setup
       - name: Dependency Check
-        run: npm run test:depcheck
+        run: pnpm run test:depcheck
       - name: Lint / Typings / Unit / Smoke Tests
-        run: npm run test
+        run: pnpm run test
       - name: Interop Tests
         run: |
-          npm i chromedriver@107
-          npm run test:e2e:cjs
+          pnpm add chromedriver@107
+          pnpm run test:e2e:cjs
   e2e-windows:
     runs-on: windows-latest
     steps:
@@ -42,12 +44,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
+      - name: Install pnpm
+        run: npm install -g pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
       - name: Bootstrap Packages
-        run: npm run setup-full
+        run: pnpm run setup
       - name: Lint / Dependencies / Unit / Smoke Tests
-        run: npm run test
+        run: pnpm run test
       - name: Setup Chrome Browser
         uses: browser-actions/setup-chrome@latest
       - name: E2E Protocol Tests
@@ -55,9 +59,9 @@ jobs:
         with:
           timeout_minutes: 20
           max_attempts: 3
-          command: npm run test:e2e
+          command: pnpm run test:e2e
       - name: E2E Edge Launch Tests
-        run: npm run test:e2e:edge
+        run: pnpm run test:e2e:edge
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
@@ -72,16 +76,18 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
+      - name: Install pnpm
+        run: npm install -g pnpm
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
       - name: Bootstrap Packages
-        run: npm run setup-full
+        run: pnpm run setup
       - name: E2E Protocol Tests
         uses: nick-invision/retry@v2
         with:
           timeout_minutes: 20
           max_attempts: 3
-          command: npm run test:e2e
+          command: pnpm run test:e2e
       # Disable Firefox tests due to https://github.com/puppeteer/puppeteer/issues/8923
       # - name: Setup Firefox
       #   uses: browser-actions/setup-firefox@latest
@@ -93,13 +99,13 @@ jobs:
       # - name: E2E Firefox Launch Tests
       #   run: npm run test:e2e:firefox
       - name: E2E Connection Test
-        run: npm run test:e2e:cloud
+        run: pnpm run test:e2e:cloud
         if: github.ref == 'refs/heads/main'
         env:
           SAUCE_USERNAME: ${{secrets.SAUCE_USERNAME}}
           SAUCE_ACCESS_KEY: ${{secrets.SAUCE_ACCESS_KEY}}
       - name: E2E Connection Test w/ Params
-        run: npm run test:e2e:cloud -- --user $SAUCE_USERNAME_PARAM --key $SAUCE_ACCESS_KEY_PARAM
+        run: pnpm run test:e2e:cloud -- --user $SAUCE_USERNAME_PARAM --key $SAUCE_ACCESS_KEY_PARAM
         if: github.ref == 'refs/heads/main'
         env:
           SAUCE_USERNAME_PARAM: ${{secrets.SAUCE_USERNAME}}
