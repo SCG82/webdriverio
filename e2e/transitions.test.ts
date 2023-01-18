@@ -1,7 +1,6 @@
 import { beforeAll, afterAll, test, expect } from 'vitest'
-import DevTools from '../packages/devtools/build/index.js'
-import { ELEMENT_KEY } from '../packages/devtools/build/constants.js'
-import type { Client } from '../packages/devtools/build/index.js'
+import DevTools, { ELEMENT_KEY } from 'devtools'
+import type { Client } from 'devtools'
 
 let browser: Client
 

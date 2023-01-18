@@ -1,3 +1,11 @@
 {
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@wdio/cli": "../packages/wdio-cli",
+    "@wdio/local-runner": "../packages/wdio-local-runner",
+    "@wdio/mocha-framework": "../packages/wdio-mocha-framework",
+    "@wdio/spec-reporter": "../packages/wdio-spec-reporter",
+    "devtools": "../packages/devtools",
+    "webdriverio": "../packages/webdriverio"
+  }
 }
