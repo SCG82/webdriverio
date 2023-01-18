@@ -3,11 +3,11 @@ import url from 'node:url'
 import path from 'node:path'
 import assert from 'node:assert'
 
-import { SevereServiceError } from 'webdriverio'
+import { sleep } from '../packages/wdio-utils/build/utils.js'
+import { SevereServiceError } from '../packages/node_modules/webdriverio/build/index.js'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 const baseConfig = path.resolve(__dirname, 'helpers', 'config.js')
-const sleep = (ms = 0) => new Promise((r) => setTimeout(r, ms))
 
 import launch from './helpers/launch.js'
 import {
