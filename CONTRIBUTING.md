@@ -332,8 +332,8 @@ After you have [set up the project](https://github.com/webdriverio/webdriverio/b
 
 ```sh
 cd website
-pnpm install
-pnpm start
+npm install
+npm start
 ```
 
 This will set up everything needed to run the page on [`localhost:3000`](http://localhost:3000/). If you need to run on a different host or port, pass them as additional arguments to npm start, like `-- --host 0.0.0.0`.
