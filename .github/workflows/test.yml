@@ -35,7 +35,7 @@ jobs:
         run: pnpm run test
       - name: Interop Tests
         run: |
-          pnpm add chromedriver@107
+          pnpm add -w chromedriver@107
           pnpm run test:e2e:cjs
   e2e-windows:
     runs-on: windows-latest
