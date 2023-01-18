@@ -88,7 +88,7 @@ const mochaAsyncTestrunner = async () => {
         'mochaAsyncTestrunner',
         path.resolve(__dirname, 'helpers', 'command.hook.config.js'),
         {
-            spec: ['./mocha/test-async.ts']
+            spec: ['./tests/mocha/test-async.ts']
         }
     )
     assert.strictEqual(skippedSpecs, 0)
@@ -260,7 +260,7 @@ const customService = async () => {
     await launch('customService', baseConfig, {
         autoCompileOpts: { autoCompile: false },
         specs: [path.resolve(__dirname, 'mocha', 'service.js')],
-        services: [['smoke-test', { logDir: path.join(__dirname, 'helpers'), foo: 'bar' }]]
+        services: [['smoke-test', { foo: 'bar' }]]
     })
     await sleep(100)
     const serviceLogs = await fs.readFile(path.join(__dirname, 'helpers', 'service.log'))
@@ -276,7 +276,7 @@ const customCJSService = async () => {
     await launch('customCJSService', baseConfig, {
         autoCompileOpts: { autoCompile: false },
         specs: [path.resolve(__dirname, 'mocha', 'service.js')],
-        services: [['smoke-test-cjs', { logDir: path.join(__dirname, 'helpers'), foo: 'bar' }]]
+        services: [['smoke-test-cjs', { foo: 'bar' }]]
     })
     await sleep(100)
     const serviceLogs = await fs.readFile(path.join(__dirname, 'helpers', 'service.log'))
