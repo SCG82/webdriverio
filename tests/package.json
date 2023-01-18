@@ -13,7 +13,6 @@
     "@wdio/smoke-test-service": "../packages/wdio-smoke-test-service",
     "@wdio/spec-reporter": "../packages/wdio-spec-reporter",
     "@wdio/webdriver-mock-service": "../packages/wdio-webdriver-mock-service",
-    "ts-node": "^10.9.1",
     "webdriverio": "../packages/webdriverio"
   }
 }
