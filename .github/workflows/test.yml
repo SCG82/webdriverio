@@ -97,7 +97,7 @@ jobs:
       #     export FIREFOX_BINARY=$(which firefox)
       #     echo "FIREFOX_BINARY=$FIREFOX_BINARY" >> $GITHUB_ENV
       # - name: E2E Firefox Launch Tests
-      #   run: npm run test:e2e:firefox
+      #   run: pnpm run test:e2e:firefox
       - name: E2E Connection Test
         run: pnpm run test:e2e:cloud
         if: github.ref == 'refs/heads/main'
