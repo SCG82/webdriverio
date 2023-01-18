@@ -4,7 +4,7 @@ import path from 'node:path'
 import assert from 'node:assert'
 
 import { sleep } from '../packages/wdio-utils/build/utils.js'
-import { SevereServiceError } from '../packages/node_modules/webdriverio/build/index.js'
+import { SevereServiceError } from '../packages/webdriverio/build/index.js'
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 const baseConfig = path.resolve(__dirname, 'helpers', 'config.js')
