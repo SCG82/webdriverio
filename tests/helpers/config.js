@@ -38,6 +38,6 @@ export const config = {
     cucumberOpts: {
         timeout: 5000,
         requireModule: ['ts-node/esm'],
-        require: ['./tests/cucumber/step-definitions/*.js']
+        require: ['./cucumber/step-definitions/*.js']
     }
 }

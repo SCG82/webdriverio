@@ -1,3 +1,19 @@
 {
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@wdio/cli": "../packages/wdio-cli",
+    "@wdio/cucumber-framework": "../packages/wdio-cucumber-framework",
+    "@wdio/globals": "../packages/wdio-globals",
+    "@wdio/jasmine-framework": "../packages/wdio-jasmine-framework",
+    "@wdio/local-runner": "../packages/wdio-local-runner",
+    "@wdio/mocha-framework": "../packages/wdio-mocha-framework",
+    "@wdio/shared-store-service": "../packages/wdio-shared-store-service",
+    "@wdio/smoke-test-cjs-service": "../packages/wdio-smoke-test-cjs-service",
+    "@wdio/smoke-test-reporter": "../packages/wdio-smoke-test-reporter",
+    "@wdio/smoke-test-service": "../packages/wdio-smoke-test-service",
+    "@wdio/spec-reporter": "../packages/wdio-spec-reporter",
+    "@wdio/webdriver-mock-service": "../packages/wdio-webdriver-mock-service",
+    "ts-node": "^10.9.1",
+    "webdriverio": "../packages/webdriverio"
+  }
 }
