@@ -1,15 +1,11 @@
 {
   "lerna": "3.4.3",
-  "packages": [
-    "packages/*"
-  ],
-  "version": "8.3.1",
+  "version": "8.3.5",
+  "npmClient": "pnpm",
+  "useWorkspaces": true,
   "command": {
-    "bootstrap": {
-      "npmClientArgs": [
-        "--no-package-lock",
-        "--include=dev"
-      ]
+    "publish": {
+      "npmClient": "npm"
     }
   },
   "changelog": {

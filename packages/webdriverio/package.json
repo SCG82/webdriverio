@@ -1,7 +1,7 @@
 {
   "name": "webdriverio",
   "description": "Next-gen browser and mobile automation test framework for Node.js",
-  "version": "8.3.1",
+  "version": "8.3.5",
   "homepage": "https://webdriver.io",
   "author": "Christian Bromann <mail@bromann.dev>",
   "license": "MIT",
@@ -63,13 +63,14 @@
     "@types/archiver": "^5.1.0",
     "@types/aria-query": "^5.0.0",
     "@types/lodash.clonedeep": "^4.5.6",
-    "@types/lodash.zip": "^4.2.6"
+    "@types/lodash.zip": "^4.2.6",
+    "@types/minimatch": "^5.1.2"
   },
   "dependencies": {
     "@types/node": "^18.0.0",
-    "@wdio/config": "8.3.1",
+    "@wdio/config": "8.3.2",
     "@wdio/logger": "8.1.0",
-    "@wdio/protocols": "8.2.0",
+    "@wdio/protocols": "8.3.5",
     "@wdio/repl": "8.1.0",
     "@wdio/types": "8.3.0",
     "@wdio/utils": "8.3.0",
@@ -77,19 +78,19 @@
     "aria-query": "^5.0.0",
     "css-shorthand-properties": "^1.1.1",
     "css-value": "^0.0.1",
-    "devtools": "8.3.1",
-    "devtools-protocol": "^0.0.1094867",
+    "devtools": "8.3.5",
+    "devtools-protocol": "^0.0.1101329",
     "grapheme-splitter": "^1.0.2",
     "import-meta-resolve": "^2.1.0",
     "is-plain-obj": "^4.1.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.zip": "^4.2.0",
     "minimatch": "^6.1.4",
-    "puppeteer-core": "19.6.0",
+    "puppeteer-core": "19.6.3",
     "query-selector-shadow-dom": "^1.0.0",
     "resq": "^1.9.1",
     "rgb2hex": "0.2.5",
     "serialize-error": "^8.0.0",
-    "webdriver": "8.3.1"
+    "webdriver": "8.3.5"
   }
 }

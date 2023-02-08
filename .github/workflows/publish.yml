@@ -42,9 +42,13 @@ jobs:
         with:
           ref: 'main'
           fetch-depth: 0
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
+          cache: 'pnpm'
       - name: NPM Setup
         run: |
           npm set registry "https://registry.npmjs.org/"
@@ -55,13 +59,14 @@ jobs:
           git config --global user.email "bot@webdriver.io"
           git config --global user.name "WebdriverIO Release Bot"
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install
+      - name: Build Packages
+        run: pnpm build
       - name: Release
         run: |
-          npm run setup-full
-          npm run generate:typings
+          pnpm generate:typings
           npx lerna publish ${{github.event.inputs.releaseType}} --exact --yes --dist-tag ${{github.event.inputs.distTag}}
-          npm run pushReleaseTag
+          pnpm pushReleaseTag
         env:
           NODE_ENV: production
           GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
